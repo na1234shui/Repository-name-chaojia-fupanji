@@ -6,8 +6,6 @@ import {
   ArrowLeft,
   Brain,
   Heart,
-  Eye,
-  EyeOff,
   ChevronDown,
   ChevronUp,
   Sparkles,
@@ -25,7 +23,6 @@ type AnalysisPhase = 'idle' | 'analyzing' | 'complete';
 
 export default function ReviewPage() {
   const [phase, setPhase] = useState<AnalysisPhase>('idle');
-  const [showHidden, setShowHidden] = useState(false);
   const [activeTab, setActiveTab] = useState<'user' | 'partner'>('user');
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [importedContent, setImportedContent] = useState<ImportedContent | null>(null);
@@ -40,17 +37,17 @@ export default function ReviewPage() {
   };
 
   return (
-    <div className="min-h-screen pb-24 px-4 pt-6 bg-[#0D0D0F]">
+    <div className="min-h-screen pb-28 px-4 pt-6 bg-gray-50">
       {/* Header */}
       <motion.div
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -12, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="flex items-center gap-3 mb-5"
       >
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => window.history.back()}
-          className="w-9 h-9 rounded-xl bg-surface-card flex items-center justify-center"
+          className="w-9 h-9 rounded-xl bg-white shadow-card flex items-center justify-center"
         >
           <ArrowLeft size={18} className="text-text-secondary" />
         </motion.button>
@@ -63,7 +60,7 @@ export default function ReviewPage() {
       {/* ── Import Phase ── */}
       {phase === 'idle' && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-4"
         >
@@ -71,27 +68,26 @@ export default function ReviewPage() {
             <ImportPanel onImport={handleImport} />
           </EmotionCard>
 
-          {/* Import status bar */}
           <AnimatePresence>
             {importedContent && (
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20"
+                exit={{ opacity: 0, y: -8 }}
+                className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center">
                       {importedContent.source === 'image' ? (
-                        <ImageIcon size={16} className="text-emerald-400" />
+                        <ImageIcon size={16} className="text-emerald-600" />
                       ) : (
-                        <FileText size={16} className="text-emerald-400" />
+                        <FileText size={16} className="text-emerald-600" />
                       )}
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <Check size={14} className="text-emerald-400" />
+                        <Check size={14} className="text-emerald-600" />
                         <span className="text-xs font-medium text-text-primary">
                           {importedContent.source === 'paste' && '已粘贴文本'}
                           {importedContent.source === 'file' && `已导入文件 ${importedContent.fileName || ''}`}
@@ -116,7 +112,6 @@ export default function ReviewPage() {
             )}
           </AnimatePresence>
 
-          {/* Analysis button */}
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={startAnalysis}
@@ -124,8 +119,8 @@ export default function ReviewPage() {
             className={cn(
               'w-full py-3.5 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 transition-all',
               importedContent
-                ? 'bg-gradient-to-r from-brand-500 to-violet-600 text-white shadow-lg shadow-brand-500/20'
-                : 'bg-surface-card text-text-dim cursor-not-allowed'
+                ? 'btn-primary'
+                : 'bg-white text-text-tertiary shadow-card cursor-not-allowed'
             )}
           >
             <Brain size={18} />
@@ -143,18 +138,18 @@ export default function ReviewPage() {
         >
           <motion.div
             className="relative"
-            animate={{ scale: [1, 1.1, 1] }}
+            animate={{ scale: [1, 1.08, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <div className="w-24 h-24 rounded-[28px] bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-2xl shadow-brand-500/20">
+            <div className="w-24 h-24 rounded-[28px] bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center shadow-profile">
               <Brain size={40} className="text-white" />
             </div>
             <motion.div
-              className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-accent-amber to-accent-rose flex items-center justify-center"
+              className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-accent-peach to-accent-rose flex items-center justify-center shadow-md"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
             >
-              <Sparkles size={14} className="text-white" />
+              <Sparkles size={12} className="text-white" />
             </motion.div>
           </motion.div>
           <div className="text-center">
@@ -165,7 +160,7 @@ export default function ReviewPage() {
             {[1, 2, 3].map((i) => (
               <motion.div
                 key={i}
-                className="w-3 h-3 rounded-full bg-brand-500/40"
+                className="w-3 h-3 rounded-full bg-brand-300"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
               />
@@ -175,7 +170,7 @@ export default function ReviewPage() {
             {['扫描情绪信号...', '识别冲突模式...', '分析潜台词...', '生成修复建议...'].map((step, i) => (
               <motion.div
                 key={step}
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.4 }}
                 className="flex items-center gap-2 text-xs text-text-tertiary"
@@ -205,9 +200,9 @@ export default function ReviewPage() {
             title="导火索"
             subtitle="冲突的触发点"
             delay={0.1}
-            className="border-red-500/20 bg-red-500/5"
+            className="bg-red-50/80"
           >
-            <div className="mt-2 p-3 bg-white/[0.04] rounded-2xl">
+            <div className="mt-2 p-3 bg-red-50/60 rounded-2xl">
               <p className="text-sm text-text-secondary leading-relaxed">
                 &ldquo;{dummyAnalysis.trigger}&rdquo;
               </p>
@@ -219,43 +214,43 @@ export default function ReviewPage() {
             emoji="⏳"
             title="情绪时间线"
             subtitle="冲突发展的关键节点"
-            delay={0.2}
+            delay={0.15}
           >
             <div className="mt-3 space-y-3 relative">
-              <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-white/[0.06]" />
+              <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-gray-100" />
               {dummyAnalysis.timeline.map((event, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.1 }}
                   className="flex gap-3 items-start"
                 >
                   <div className={cn(
                     'w-6 h-6 rounded-full flex items-center justify-center shrink-0 relative z-10',
-                    event.type === 'trigger' ? 'bg-red-500/20' :
-                    event.type === 'escalate' ? 'bg-accent-amber/20' :
-                    event.type === 'defensive' ? 'bg-yellow-500/20' :
-                    event.type === 'cold-war' ? 'bg-blue-500/20' :
-                    'bg-white/[0.06]'
+                    event.type === 'trigger' ? 'bg-red-100' :
+                    event.type === 'escalate' ? 'bg-amber-100' :
+                    event.type === 'defensive' ? 'bg-yellow-100' :
+                    event.type === 'cold-war' ? 'bg-blue-100' :
+                    'bg-gray-100'
                   )}>
                     <div className={cn(
                       'w-2 h-2 rounded-full',
                       event.type === 'trigger' ? 'bg-red-500' :
-                      event.type === 'escalate' ? 'bg-accent-amber' :
+                      event.type === 'escalate' ? 'bg-amber-500' :
                       event.type === 'defensive' ? 'bg-yellow-500' :
                       event.type === 'cold-war' ? 'bg-blue-500' :
-                      'bg-white/[0.2]'
+                      'bg-gray-300'
                     )} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-text-tertiary font-mono">{event.time}</span>
                       {event.type === 'cold-war' && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-medium">冷战</span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">冷战</span>
                       )}
                       {event.type === 'trigger' && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 font-medium">触发</span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-50 text-red-500 font-medium">触发</span>
                       )}
                     </div>
                     <p className="text-sm text-text-secondary mt-0.5">{event.event}</p>
@@ -270,11 +265,11 @@ export default function ReviewPage() {
             emoji="🎭"
             title="潜台词翻译"
             subtitle="Ta 真正想说的话"
-            delay={0.3}
-            className="bg-violet-500/5 border-violet-500/20"
+            delay={0.2}
+            className="bg-brand-50/60"
           >
             <div className="mt-2 space-y-2">
-              <div className="p-3 bg-white/[0.04] rounded-2xl relative">
+              <div className="p-3 bg-white rounded-2xl">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-medium text-text-tertiary">说了什么</span>
                 </div>
@@ -285,12 +280,12 @@ export default function ReviewPage() {
                 animate={{ y: [0, 3, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <ChevronDown size={20} className="text-brand-400/50" />
+                <ChevronDown size={20} className="text-brand-300" />
               </motion.div>
-              <div className="p-3 bg-brand-500/10 rounded-2xl border border-brand-500/20">
+              <div className="p-3 bg-brand-50/80 rounded-2xl">
                 <div className="flex items-center gap-2 mb-2">
-                  <Sparkles size={14} className="text-brand-400" />
-                  <span className="text-xs font-medium text-brand-400">潜台词</span>
+                  <Sparkles size={14} className="text-brand-500" />
+                  <span className="text-xs font-medium text-brand-600">潜台词</span>
                 </div>
                 <p className="text-sm text-text-primary font-medium">
                   {dummyAnalysis.hiddenMessage.meaning}
@@ -304,7 +299,7 @@ export default function ReviewPage() {
             emoji="💗"
             title="双方情绪分析"
             subtitle="你们的情绪状态"
-            delay={0.35}
+            delay={0.25}
           >
             <div className="flex gap-2 mb-4 mt-2">
               {(['user', 'partner'] as const).map((tab) => (
@@ -314,8 +309,8 @@ export default function ReviewPage() {
                   className={cn(
                     'flex-1 py-2 rounded-xl text-xs font-medium transition-all',
                     activeTab === tab
-                      ? 'bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-md'
-                      : 'bg-white/[0.04] text-text-tertiary'
+                      ? 'bg-gradient-to-br from-brand-500 to-brand-400 text-white shadow-md'
+                      : 'bg-gray-50 text-text-tertiary'
                   )}
                 >
                   {tab === 'user' ? '你的情绪' : '对方的情绪'}
@@ -329,14 +324,16 @@ export default function ReviewPage() {
                     <span className="text-text-secondary">{item.emoji} {item.emotion}</span>
                     <span className="text-text-tertiary">{item.percentage}%</span>
                   </div>
-                  <div className="h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${item.percentage}%` }}
                       transition={{ duration: 0.8, delay: 0.5 }}
                       className={cn(
                         'h-full rounded-full',
-                        activeTab === 'user' ? 'bg-gradient-to-r from-brand-400 to-pink-500' : 'bg-gradient-to-r from-mood-calm to-brand-500'
+                        activeTab === 'user'
+                          ? 'bg-gradient-to-r from-brand-500 to-accent-rose'
+                          : 'bg-gradient-to-r from-accent-lavender to-brand-400'
                       )}
                     />
                   </div>
@@ -350,10 +347,10 @@ export default function ReviewPage() {
             emoji="💡"
             title="AI 总结"
             subtitle="冲突的本质"
-            delay={0.4}
-            className="bg-brand-500/5 border-brand-500/10"
+            delay={0.3}
+            className="bg-brand-50/50"
           >
-            <div className="mt-2 p-4 bg-white/[0.04] backdrop-blur-sm rounded-2xl">
+            <div className="mt-2 p-4 bg-white rounded-2xl">
               <p className="text-sm text-text-secondary leading-relaxed">
                 {dummyAnalysis.summary}
               </p>
@@ -365,7 +362,7 @@ export default function ReviewPage() {
             emoji="🎯"
             title="双模式建议"
             subtitle="吵赢 vs 哄好"
-            delay={0.45}
+            delay={0.35}
           >
             <div className="flex gap-2 mt-3 mb-3">
               {(['win', 'makeup'] as const).map((mode) => (
@@ -376,9 +373,9 @@ export default function ReviewPage() {
                     'flex-1 py-2.5 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-1.5',
                     expandedSection === mode
                       ? mode === 'win'
-                        ? 'bg-gradient-to-br from-accent-amber to-accent-rose text-white shadow-md'
-                        : 'bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-md'
-                      : 'bg-white/[0.04] text-text-tertiary'
+                        ? 'bg-gradient-to-br from-accent-peach to-accent-rose text-white shadow-md'
+                        : 'bg-gradient-to-br from-brand-500 to-brand-400 text-white shadow-md'
+                      : 'bg-gray-50 text-text-tertiary'
                   )}
                 >
                   {mode === 'win' ? '🥊 吵赢' : '🌻 哄好'}
@@ -395,12 +392,12 @@ export default function ReviewPage() {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-3 bg-white/[0.04] rounded-2xl space-y-2">
+                  <div className="p-3 bg-gray-50 rounded-2xl space-y-2">
                     {(dummyAnalysis.suggestions[expandedSection as 'win' | 'makeup'] || []).map((s, i) => (
                       <div key={i} className="flex items-start gap-2 text-sm text-text-secondary">
                         <span className={cn(
                           'w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0 mt-0.5',
-                          expandedSection === 'win' ? 'bg-accent-amber' : 'bg-brand-500'
+                          expandedSection === 'win' ? 'bg-accent-peach' : 'bg-brand-500'
                         )}>
                           {i + 1}
                         </span>
@@ -412,7 +409,6 @@ export default function ReviewPage() {
               )}
             </AnimatePresence>
 
-            {/* Re-analyze */}
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => setPhase('idle')}

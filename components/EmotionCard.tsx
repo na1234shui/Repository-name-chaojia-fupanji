@@ -9,7 +9,6 @@ interface EmotionCardProps {
   emoji?: string;
   title?: string;
   subtitle?: string;
-  gradient?: string;
   className?: string;
   delay?: number;
   onClick?: () => void;
@@ -30,12 +29,12 @@ export default function EmotionCard({
 }: EmotionCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.5, ease: 'easeOut' }}
+      transition={{ delay, duration: 0.45, ease: 'easeOut' }}
       onClick={onClick}
       className={cn(
-        'card-gradient-hover',
+        'card-hover',
         size === 'sm' && 'p-4',
         size === 'md' && 'p-5',
         size === 'lg' && 'p-6',
@@ -48,12 +47,12 @@ export default function EmotionCard({
           {emoji ? (
             <span className="text-2xl">{emoji}</span>
           ) : Icon ? (
-            <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
-              <Icon size={20} className="text-brand-400" />
+            <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+              <Icon size={20} className="text-brand-500" />
             </div>
           ) : null}
           <div>
-            <h3 className="font-semibold text-text-primary text-sm">{title}</h3>
+            <h3 className="font-semibold text-text-primary text-sm leading-snug">{title}</h3>
             {subtitle && (
               <p className="text-xs text-text-tertiary mt-0.5">{subtitle}</p>
             )}

@@ -9,7 +9,6 @@ import {
   Swords,
   Heart,
   HeartHandshake,
-  TrendingUp,
   Quote,
 } from 'lucide-react';
 import BottomNav from '@/components/Navigation';
@@ -20,40 +19,34 @@ export default function HomePage() {
   const router = useRouter();
 
   const quickActions = [
-    { label: '我要吵赢', emoji: '🥊', icon: Swords, color: 'from-accent-amber to-accent-rose', href: '/chat?mode=win' },
-    { label: '我要哄好', emoji: '🌻', icon: Heart, color: 'from-brand-400 to-violet-500', href: '/chat?mode=makeup' },
-    { label: '我想被理解', emoji: '🥺', icon: HeartHandshake, color: 'from-mood-calm to-brand-500', href: '/chat?mode=understood' },
+    { label: '我要吵赢', emoji: '🥊', icon: Swords, color: 'from-accent-peach to-accent-rose', href: '/chat?mode=win' },
+    { label: '我要哄好', emoji: '🌻', icon: Heart, color: 'from-brand-500 to-brand-400', href: '/chat?mode=makeup' },
+    { label: '我想被理解', emoji: '🥺', icon: HeartHandshake, color: 'from-accent-lavender to-brand-400', href: '/chat?mode=understood' },
   ];
 
   const insightCards = [
     { emoji: '💡', title: '今日情绪提醒', subtitle: '适合温和沟通，避免翻旧账', delay: 0.3 },
-    { emoji: '📊', title: '本周沟通质量', subtitle: '较上周提升 15%', delay: 0.4 },
-    { emoji: '💬', title: '待处理情绪', subtitle: '3 条未回应的情绪信号', delay: 0.5 },
+    { emoji: '📊', title: '本周沟通质量', subtitle: '较上周提升 15%', delay: 0.35 },
+    { emoji: '💬', title: '待处理情绪', subtitle: '3 条未回应的情绪信号', delay: 0.4 },
   ];
 
   return (
-    <div className="min-h-screen pb-24 px-4 pt-6 bg-[#0D0D0F]">
+    <div className="min-h-screen pb-28 px-4 pt-6">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-6"
       >
         <div>
-          <motion.h1
-            className="text-2xl font-bold text-text-primary"
-            animate={{ opacity: [1, 0.7, 1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            吵架复盘机
-          </motion.h1>
+          <h1 className="text-2xl font-bold text-text-primary tracking-tight">吵架复盘机</h1>
           <p className="text-xs text-text-tertiary mt-0.5">AI 情绪关系助手</p>
         </div>
         <motion.button
           whileTap={{ scale: 0.95 }}
-          className="w-10 h-10 rounded-xl bg-surface-card backdrop-blur-xl border border-white/[0.06] flex items-center justify-center shadow-sm"
+          className="w-10 h-10 rounded-xl bg-white shadow-card flex items-center justify-center"
         >
-          <Sparkles size={18} className="text-brand-400" />
+          <Sparkles size={18} className="text-brand-500" />
         </motion.button>
       </motion.div>
 
@@ -62,9 +55,9 @@ export default function HomePage() {
 
       {/* Quick Actions */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.15 }}
         className="mt-5"
       >
         <h2 className="text-sm font-semibold text-text-primary mb-3">快速开始</h2>
@@ -75,9 +68,9 @@ export default function HomePage() {
               whileTap={{ scale: 0.95 }}
               whileHover={{ y: -2 }}
               onClick={() => router.push(action.href)}
-              className="card-gradient p-4 flex flex-col items-center gap-2 group"
+              className="card p-4 flex flex-col items-center gap-2 group"
             >
-              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${action.color} flex items-center justify-center shadow-md shadow-black/20 group-hover:shadow-lg transition-shadow`}>
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${action.color} flex items-center justify-center shadow-md shadow-brand-500/10 group-hover:shadow-lg transition-shadow`}>
                 <action.icon size={20} className="text-white" />
               </div>
               <span className="text-xs font-medium text-text-secondary">{action.label}</span>
@@ -91,16 +84,16 @@ export default function HomePage() {
         title="导入聊天记录"
         subtitle="粘贴、截图或语音转文字"
         emoji="📥"
-        delay={0.25}
+        delay={0.2}
         className="mt-4"
         onClick={() => router.push('/review')}
       >
         <div className="flex gap-2 mt-2">
-          <div className="flex-1 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.04] text-xs text-text-tertiary">
+          <div className="flex-1 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-50 text-xs text-text-tertiary">
             <Upload size={14} />
             粘贴文本
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.04] text-xs text-text-tertiary">
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-50 text-xs text-text-tertiary">
             <Mic size={14} />
             语音
           </div>
@@ -111,7 +104,7 @@ export default function HomePage() {
       <div className="mt-5">
         <h2 className="text-sm font-semibold text-text-primary mb-3">AI 关系洞察</h2>
         <div className="space-y-3">
-          {insightCards.map((card, i) => (
+          {insightCards.map((card) => (
             <EmotionCard
               key={card.title}
               emoji={card.emoji}
@@ -126,8 +119,8 @@ export default function HomePage() {
 
       {/* Emotional Quote */}
       <EmotionCard
-        delay={0.6}
-        className="mt-4 bg-brand-500/[0.06] border-brand-500/10"
+        delay={0.5}
+        className="mt-4 bg-brand-50/50"
       >
         <div className="flex items-start gap-3">
           <Quote size={20} className="text-brand-400 mt-1 shrink-0" />

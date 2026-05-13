@@ -17,9 +17,9 @@ import BottomNav from '@/components/Navigation';
 import { cn, formatTime, getRiskColor, getRiskLabel, type Message } from '@/lib/utils';
 
 const modeConfig = {
-  win: { label: '吵赢模式', icon: Swords, color: 'from-accent-amber to-accent-rose', emoji: '🥊', accent: 'text-accent-amber', bgAccent: 'bg-accent-amber/10', borderAccent: 'border-accent-amber/20' },
-  makeup: { label: '哄好模式', icon: Heart, color: 'from-brand-400 to-violet-500', emoji: '🌻', accent: 'text-brand-400', bgAccent: 'bg-brand-500/10', borderAccent: 'border-brand-500/20' },
-  understood: { label: '被理解模式', icon: Sparkles, color: 'from-mood-calm to-brand-500', emoji: '🥺', accent: 'text-mood-calm', bgAccent: 'bg-mood-calm/10', borderAccent: 'border-mood-calm/20' },
+  win: { label: '吵赢模式', icon: Swords, color: 'from-accent-peach to-accent-rose', emoji: '🥊', accent: 'text-accent-peach' },
+  makeup: { label: '哄好模式', icon: Heart, color: 'from-brand-500 to-brand-400', emoji: '🌻', accent: 'text-brand-500' },
+  understood: { label: '被理解模式', icon: Sparkles, color: 'from-accent-lavender to-brand-400', emoji: '🥺', accent: 'text-accent-lavender' },
 };
 
 const aiPreambles: Record<string, string> = {
@@ -31,9 +31,9 @@ const aiPreambles: Record<string, string> = {
 export default function ChatPageWrapper() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#0D0D0F]">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center mx-auto mb-4 shadow-2xl animate-pulse">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center mx-auto mb-4 shadow-profile animate-pulse">
             <Sparkles size={28} className="text-white" />
           </div>
           <p className="text-sm text-text-tertiary">加载中...</p>
@@ -82,7 +82,6 @@ function ChatPageContent() {
     setInput('');
     setIsStreaming(true);
 
-    // Simulated streaming AI response (fallback when no API key)
     const responseText = getSimulatedResponse(input.trim(), mode);
     const riskSim = Math.min(9, Math.max(1, Math.floor(Math.random() * 7) + 2));
     setRiskLevel(riskSim);
@@ -95,7 +94,6 @@ function ChatPageContent() {
     };
     setMessages((prev) => [...prev, assistantMsg]);
 
-    // Streaming effect
     let index = 0;
     const words = responseText.split('');
     const streamInterval = setInterval(() => {
@@ -124,22 +122,22 @@ function ChatPageContent() {
   };
 
   return (
-    <div className="min-h-screen pb-24 flex flex-col bg-[#0D0D0F]">
+    <div className="min-h-screen pb-28 flex flex-col bg-gray-50">
       {/* Header */}
       <motion.div
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -12, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="sticky top-0 z-20 px-4 pt-4 pb-3 bg-[#0D0D0F]/90 backdrop-blur-xl"
+        className="sticky top-0 z-20 px-4 pt-4 pb-3 bg-gray-50/90 backdrop-blur-xl"
       >
         <div className="flex items-center gap-3 mb-3">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => window.history.back()}
-            className="w-9 h-9 rounded-xl bg-surface-card flex items-center justify-center"
+            className="w-9 h-9 rounded-xl bg-white shadow-card flex items-center justify-center"
           >
             <ArrowLeft size={18} className="text-text-secondary" />
           </motion.button>
-          <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-lg shadow-black/20`}>
+          <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-md`}>
             <config.icon size={18} className="text-white" />
           </div>
           <div className="flex-1">
@@ -154,7 +152,7 @@ function ChatPageContent() {
               content: `对话已重置。${aiPreambles[mode]}`,
               timestamp: new Date(),
             }])}
-            className="w-9 h-9 rounded-xl bg-surface-card flex items-center justify-center"
+            className="w-9 h-9 rounded-xl bg-white shadow-card flex items-center justify-center"
           >
             <Trash2 size={16} className="text-text-tertiary" />
           </motion.button>
@@ -162,15 +160,15 @@ function ChatPageContent() {
 
         {/* Risk Meter */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`card-gradient p-3 flex items-center gap-3 ${config.borderAccent}`}
+          className="card p-3 flex items-center gap-3"
         >
           <div className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-gradient-to-r ${getRiskColor(riskLevel)} text-white text-xs font-bold`}>
             <AlertTriangle size={12} />
             {getRiskLabel(riskLevel)}
           </div>
-          <div className="flex-1 h-2 bg-white/[0.06] rounded-full overflow-hidden">
+          <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
             <motion.div
               animate={{ width: `${riskLevel * 10}%` }}
               className={`h-full rounded-full bg-gradient-to-r ${getRiskColor(riskLevel)}`}
@@ -187,7 +185,7 @@ function ChatPageContent() {
           {messages.map((msg) => (
             <motion.div
               key={msg.id}
-              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              initial={{ opacity: 0, y: 8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               className={cn(
                 'flex',
@@ -198,8 +196,8 @@ function ChatPageContent() {
                 className={cn(
                   'max-w-[85%] rounded-3xl px-4 py-3',
                   msg.role === 'user'
-                    ? 'bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-lg shadow-brand-500/20'
-                    : 'card-gradient'
+                    ? 'bg-gradient-to-br from-brand-500 to-brand-400 text-white shadow-md shadow-brand-500/20'
+                    : 'bg-white shadow-card'
                 )}
               >
                 {msg.role === 'assistant' && (
@@ -236,12 +234,12 @@ function ChatPageContent() {
 
       {/* Input */}
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
+        initial={{ y: 12, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="sticky bottom-24 px-4 pb-2"
+        className="sticky bottom-28 px-4 pb-2"
       >
-        <div className="glass rounded-2xl p-2 flex items-end gap-2">
-          <button className="w-9 h-9 rounded-xl bg-white/[0.04] flex items-center justify-center shrink-0">
+        <div className="bg-white shadow-card rounded-2xl p-2 flex items-end gap-2">
+          <button className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center shrink-0">
             <Mic size={16} className="text-text-tertiary" />
           </button>
           <textarea
@@ -251,7 +249,7 @@ function ChatPageContent() {
             onKeyDown={handleKeyDown}
             placeholder="输入你想说的话或对方的消息..."
             rows={1}
-            className="flex-1 bg-transparent text-sm text-text-primary placeholder-text-dim resize-none outline-none py-2 max-h-32"
+            className="flex-1 bg-transparent text-sm text-text-primary placeholder-text-tertiary resize-none outline-none py-2 max-h-32"
           />
           <motion.button
             whileTap={{ scale: 0.9 }}
@@ -260,8 +258,8 @@ function ChatPageContent() {
             className={cn(
               'w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all',
               input.trim() && !isStreaming
-                ? 'bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-md'
-                : 'bg-white/[0.04] text-text-dim'
+                ? 'bg-gradient-to-br from-brand-500 to-brand-400 text-white shadow-md'
+                : 'bg-gray-50 text-text-tertiary'
             )}
           >
             <Send size={16} />

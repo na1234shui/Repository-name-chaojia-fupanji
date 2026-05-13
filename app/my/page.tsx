@@ -28,19 +28,20 @@ const menuItems = [
     icon: Heart,
     label: '我的关系档案',
     desc: '情绪画像、关系健康度、成长轨迹',
-    color: 'bg-pink-500/10',
-    iconColor: 'text-pink-400',
-    accent: 'border-pink-500/20',
+    color: 'bg-white',
+    iconColor: 'text-accent-rose',
+    iconBg: 'bg-rose-50',
     badge: '更新',
+    badgeColor: 'bg-rose-50 text-rose-600',
   },
   {
     id: 'history',
     icon: History,
     label: '复盘记录',
     desc: '查看历史 AI 复盘分析',
-    color: 'bg-violet-500/10',
-    iconColor: 'text-violet-400',
-    accent: 'border-violet-500/20',
+    color: 'bg-white',
+    iconColor: 'text-brand-500',
+    iconBg: 'bg-brand-50',
     count: 12,
   },
   {
@@ -48,28 +49,29 @@ const menuItems = [
     icon: Crown,
     label: '会员中心',
     desc: '解锁更多 AI 分析次数和高级功能',
-    color: 'bg-accent-amber/10',
-    iconColor: 'text-accent-amber',
-    accent: 'border-accent-amber/20',
+    color: 'bg-white',
+    iconColor: 'text-amber-500',
+    iconBg: 'bg-amber-50',
     badge: '免费',
+    badgeColor: 'bg-amber-50 text-amber-600',
   },
   {
     id: 'privacy',
     icon: Shield,
     label: '隐私安全',
     desc: '数据加密、对话管理、隐私设置',
-    color: 'bg-mood-calm/10',
-    iconColor: 'text-mood-calm',
-    accent: 'border-mood-calm/20',
+    color: 'bg-white',
+    iconColor: 'text-accent-sage',
+    iconBg: 'bg-emerald-50',
   },
   {
     id: 'settings',
     icon: Settings,
     label: '设置',
     desc: '通知偏好、语言、主题、账号管理',
-    color: 'bg-white/[0.04]',
+    color: 'bg-white',
     iconColor: 'text-text-secondary',
-    accent: 'border-white/[0.06]',
+    iconBg: 'bg-gray-50',
   },
 ];
 
@@ -84,17 +86,17 @@ export default function MyPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen pb-24 px-4 pt-6 bg-[#0D0D0F]">
+    <div className="min-h-screen pb-28 px-4 pt-6 bg-gray-50">
       {/* Header */}
       <motion.div
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -12, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="flex items-center gap-3 mb-6"
       >
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => window.history.back()}
-          className="w-9 h-9 rounded-xl bg-surface-card flex items-center justify-center"
+          className="w-9 h-9 rounded-xl bg-white shadow-card flex items-center justify-center"
         >
           <ArrowLeft size={18} className="text-text-secondary" />
         </motion.button>
@@ -106,48 +108,46 @@ export default function MyPage() {
 
       {/* Profile Card */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-5 mb-5 rounded-[28px] bg-gradient-to-br from-brand-600 via-violet-700 to-brand-800 shadow-xl shadow-black/30 relative overflow-hidden"
+        className="p-5 mb-5 rounded-[28px] bg-gradient-to-br from-brand-500 to-brand-400 shadow-profile relative overflow-hidden"
       >
-        {/* Decorative bubbles */}
-        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white/[0.06] blur-xl" />
-        <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-white/[0.06] blur-xl" />
+        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+        <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
 
         <div className="relative z-10 flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+          <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
             <MessageCircleHeart size={32} className="text-white" />
           </div>
           <div className="flex-1">
             <h2 className="text-lg font-bold text-white">你的情绪记录者</h2>
-            <p className="text-sm text-white/60 mt-0.5">吵架复盘机 · 已陪伴 23 天</p>
+            <p className="text-sm text-white/70 mt-0.5">吵架复盘机 · 已陪伴 23 天</p>
             <div className="flex items-center gap-1 mt-2">
               {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} size={12} className="text-yellow-300 fill-yellow-300" />
+                <Star key={i} size={12} className="text-yellow-200 fill-yellow-200" />
               ))}
             </div>
           </div>
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-white text-xs font-medium"
+            className="px-4 py-2 rounded-xl bg-white/20 backdrop-blur-sm text-white text-xs font-medium"
           >
             编辑
           </motion.button>
         </div>
 
-        {/* Stats row */}
         <div className="grid grid-cols-3 gap-2 mt-5">
           {[
-            { label: '复盘次数', value: '12', unit: '次' },
-            { label: 'AI 对话', value: '48', unit: '条' },
-            { label: '关系提升', value: '23', unit: '%' },
+            { label: '复盘次数', value: '12' },
+            { label: 'AI 对话', value: '48' },
+            { label: '关系提升', value: '23%' },
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-white/[0.06] backdrop-blur-sm rounded-2xl py-2.5 text-center border border-white/[0.04]"
+              className="bg-white/15 backdrop-blur-sm rounded-2xl py-2.5 text-center"
             >
               <div className="text-white font-bold text-lg">{stat.value}</div>
-              <div className="text-white/50 text-[10px]">{stat.label}</div>
+              <div className="text-white/60 text-[10px]">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -162,38 +162,32 @@ export default function MyPage() {
           return (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.06 }}
+              transition={{ delay: 0.08 + i * 0.05 }}
             >
               <motion.button
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setExpanded(isExpanded ? null : item.id)}
                 className={cn(
-                  'w-full p-4 rounded-[24px] border text-left transition-all',
-                  item.color,
-                  item.accent,
-                  isExpanded && 'shadow-md shadow-black/20'
+                  'w-full p-4 rounded-[24px] shadow-card text-left transition-all bg-white',
+                  isExpanded && 'rounded-b-none shadow-card-hover'
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-surface-card flex items-center justify-center shrink-0">
+                  <div className={`w-10 h-10 rounded-xl ${item.iconBg} flex items-center justify-center shrink-0`}>
                     <Icon size={20} className={item.iconColor} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-semibold text-text-primary">{item.label}</span>
                       {item.badge && (
-                        <span className={cn(
-                          'text-[10px] px-1.5 py-0.5 rounded-full font-medium',
-                          item.badge === '更新' && 'bg-pink-500/20 text-pink-400',
-                          item.badge === '免费' && 'bg-accent-amber/20 text-accent-amber',
-                        )}>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${item.badgeColor}`}>
                           {item.badge}
                         </span>
                       )}
                       {item.count && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/[0.06] text-text-tertiary font-mono">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gray-50 text-text-tertiary font-mono">
                           {item.count}
                         </span>
                       )}
@@ -203,14 +197,13 @@ export default function MyPage() {
                   <ChevronRight
                     size={16}
                     className={cn(
-                      'text-text-dim transition-transform',
+                      'text-text-tertiary transition-transform',
                       isExpanded && 'rotate-90'
                     )}
                   />
                 </div>
               </motion.button>
 
-              {/* Expanded content */}
               {isExpanded && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
@@ -218,26 +211,23 @@ export default function MyPage() {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className={cn(
-                    'mx-4 p-4 rounded-b-2xl bg-surface-card backdrop-blur-sm border-x border-b rounded-[0_0_20px_20px] -mt-1',
-                    item.accent
-                  )}>
+                  <div className="bg-white shadow-card rounded-b-[24px] border-t border-gray-50 p-4 -mt-[1px]">
                     {item.id === 'archive' && (
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between p-3 bg-white/[0.04] rounded-xl">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                           <span className="text-xs text-text-secondary">焦虑确认型 · 高敏感</span>
-                          <span className="text-xs text-brand-400 font-medium">查看完整画像 →</span>
+                          <span className="text-xs text-brand-500 font-medium">查看完整画像 →</span>
                         </div>
-                        <div className="flex items-center justify-between p-3 bg-white/[0.04] rounded-xl">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                           <span className="text-xs text-text-secondary">关系健康度</span>
                           <div className="flex items-center gap-2">
-                            <div className="w-20 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
-                              <div className="w-[65%] h-full bg-gradient-to-r from-brand-400 to-violet-500 rounded-full" />
+                            <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                              <div className="w-[65%] h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full" />
                             </div>
                             <span className="text-xs font-bold text-text-primary">65%</span>
                           </div>
                         </div>
-                        <div className="flex items-center justify-between p-3 bg-white/[0.04] rounded-xl">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                           <span className="text-xs text-text-secondary">共同成长天数</span>
                           <span className="text-xs font-medium text-text-primary">23 天</span>
                         </div>
@@ -254,11 +244,11 @@ export default function MyPage() {
                         ].map((record, j) => (
                           <motion.button
                             key={j}
-                            initial={{ opacity: 0, x: -5 }}
+                            initial={{ opacity: 0, x: -4 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: j * 0.05 }}
+                            transition={{ delay: j * 0.04 }}
                             whileTap={{ scale: 0.98 }}
-                            className="w-full p-3 bg-white/[0.04] rounded-xl flex items-center justify-between"
+                            className="w-full p-3 bg-gray-50 rounded-xl flex items-center justify-between"
                           >
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
@@ -274,7 +264,7 @@ export default function MyPage() {
                         ))}
                         <motion.button
                           whileTap={{ scale: 0.97 }}
-                          className="w-full py-2 text-xs text-brand-400 font-medium text-center"
+                          className="w-full py-2 text-xs text-brand-500 font-medium text-center"
                         >
                           查看全部复盘记录 →
                         </motion.button>
@@ -283,25 +273,25 @@ export default function MyPage() {
 
                     {item.id === 'vip' && (
                       <div className="space-y-2">
-                        <div className="p-3 bg-accent-amber/10 rounded-xl border border-accent-amber/20">
+                        <div className="p-3 bg-amber-50 rounded-xl border border-amber-200">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                              <Crown size={16} className="text-accent-amber" />
+                              <Crown size={16} className="text-amber-500" />
                               <span className="text-xs font-semibold text-text-primary">当前套餐</span>
                             </div>
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent-amber/20 text-accent-amber font-medium">免费版</span>
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-600 font-medium">免费版</span>
                           </div>
                           <div className="flex items-center justify-between text-xs text-text-tertiary">
                             <span>今日剩余 AI 分析次数</span>
-                            <span className="font-bold text-accent-amber">3 / 5 次</span>
+                            <span className="font-bold text-amber-600">3 / 5 次</span>
                           </div>
-                          <div className="mt-2 h-1.5 bg-accent-amber/20 rounded-full overflow-hidden">
-                            <div className="w-[60%] h-full bg-gradient-to-r from-accent-amber to-accent-rose rounded-full" />
+                          <div className="mt-2 h-1.5 bg-amber-200 rounded-full overflow-hidden">
+                            <div className="w-[60%] h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-full" />
                           </div>
                         </div>
                         <motion.button
                           whileTap={{ scale: 0.97 }}
-                          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-accent-amber to-accent-rose text-white text-xs font-semibold shadow-lg shadow-accent-amber/20"
+                          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-white text-xs font-semibold shadow-md"
                         >
                           升级会员 — 解锁无限分析
                         </motion.button>
@@ -312,11 +302,11 @@ export default function MyPage() {
                             { label: '关系发展报告', free: '✗', pro: '✓' },
                             { label: 'AI 回复建议', free: '3条/次', pro: '无限' },
                           ].map((feat) => (
-                            <div key={feat.label} className="p-2 bg-white/[0.04] rounded-xl text-center">
+                            <div key={feat.label} className="p-2 bg-gray-50 rounded-xl text-center">
                               <p className="text-[10px] text-text-tertiary">{feat.label}</p>
                               <div className="flex justify-center gap-2 mt-1 text-[10px]">
-                                <span className="text-text-dim">免费 {feat.free}</span>
-                                <span className="text-accent-amber font-medium">Pro {feat.pro}</span>
+                                <span className="text-text-tertiary">免费 {feat.free}</span>
+                                <span className="text-amber-600 font-medium">Pro {feat.pro}</span>
                               </div>
                             </div>
                           ))}
@@ -332,14 +322,14 @@ export default function MyPage() {
                           { label: '自动删除历史', enabled: false, desc: '7天后自动清除分析记录' },
                           { label: '本地优先存储', enabled: true, desc: '分析结果优先存储在本地' },
                         ].map((privacy) => (
-                          <div key={privacy.label} className="flex items-center justify-between p-3 bg-white/[0.04] rounded-xl">
+                          <div key={privacy.label} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                             <div>
                               <div className="flex items-center gap-2">
                                 <span className="text-xs font-medium text-text-primary">{privacy.label}</span>
                                 {privacy.enabled ? (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-mood-safe">已开启</span>
+                                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600">已开启</span>
                                 ) : (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/[0.06] text-text-dim">未开启</span>
+                                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gray-100 text-text-tertiary">未开启</span>
                                 )}
                               </div>
                               <p className="text-[10px] text-text-tertiary mt-0.5">{privacy.desc}</p>
@@ -347,7 +337,7 @@ export default function MyPage() {
                             <button
                               className={cn(
                                 'w-10 h-6 rounded-full relative transition-colors',
-                                privacy.enabled ? 'bg-brand-500' : 'bg-white/[0.08]'
+                                privacy.enabled ? 'bg-brand-500' : 'bg-gray-200'
                               )}
                             >
                               <div
@@ -369,7 +359,7 @@ export default function MyPage() {
                           return (
                             <div
                               key={setting.label}
-                              className="flex items-center justify-between p-3 bg-white/[0.04] rounded-xl"
+                              className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
                             >
                               <div className="flex items-center gap-3">
                                 <SIcon size={16} className="text-text-tertiary" />
@@ -379,7 +369,7 @@ export default function MyPage() {
                                 <button
                                   className={cn(
                                     'w-10 h-6 rounded-full relative transition-colors',
-                                    setting.enabled ? 'bg-brand-500' : 'bg-white/[0.08]'
+                                    setting.enabled ? 'bg-brand-500' : 'bg-gray-200'
                                   )}
                                 >
                                   <div
@@ -397,7 +387,7 @@ export default function MyPage() {
                         })}
                         <motion.button
                           whileTap={{ scale: 0.97 }}
-                          className="w-full py-2.5 rounded-xl bg-mood-danger/10 border border-mood-danger/20 text-mood-danger text-xs font-medium mt-3 flex items-center justify-center gap-2"
+                          className="w-full py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-500 text-xs font-medium mt-3 flex items-center justify-center gap-2"
                         >
                           <LogOut size={14} />
                           退出登录
@@ -416,10 +406,10 @@ export default function MyPage() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
+        transition={{ delay: 0.5 }}
         className="text-center pb-4"
       >
-        <p className="text-[10px] text-text-dim tracking-wider">
+        <p className="text-[10px] text-text-tertiary tracking-wider">
           吵架复盘机 v1.0 · 不是帮你赢，而是帮你表达
         </p>
       </motion.div>

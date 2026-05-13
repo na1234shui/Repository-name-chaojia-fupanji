@@ -17,53 +17,47 @@ export default function SplashPage() {
   }, [router]);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0D0D0F]">
-      {/* Dark ambient glow */}
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-white to-gray-50">
+      {/* Subtle ambient glow */}
       <motion.div
-        className="absolute w-80 h-80 rounded-full bg-brand-500/10 blur-[100px]"
-        animate={{ x: [0, 30, -20, 0], y: [0, -40, 20, 0] }}
+        className="absolute w-72 h-72 rounded-full bg-brand-100/40 blur-[100px]"
+        animate={{ x: [0, 20, -15, 0], y: [0, -30, 15, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ top: '5%', left: '-15%' }}
+        style={{ top: '5%', left: '-10%' }}
       />
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-violet-500/8 blur-[120px]"
-        animate={{ x: [0, -30, 40, 0], y: [0, 30, -20, 0] }}
+        className="absolute w-80 h-80 rounded-full bg-accent-lavender/20 blur-[120px]"
+        animate={{ x: [0, -20, 30, 0], y: [0, 20, -15, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ bottom: '0%', right: '-20%' }}
+        style={{ bottom: '0%', right: '-15%' }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-8 px-8">
-        {/* Logo animation */}
+        {/* Logo */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15, duration: 1.2 }}
           className="relative"
         >
-          <div className="w-28 h-28 rounded-[32px] bg-gradient-to-br from-brand-400 via-brand-500 to-brand-700 flex items-center justify-center shadow-2xl shadow-brand-500/20">
+          <div className="w-28 h-28 rounded-[32px] bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center shadow-profile">
             <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
+              animate={{ scale: [1, 1.08, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
               <MessageCircleHeart size={52} className="text-white" />
             </motion.div>
           </div>
-          {/* Glow ring */}
-          <motion.div
-            className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-brand-400 to-violet-500 opacity-25 blur-xl"
-            animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          />
         </motion.div>
 
         {/* Brand name */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
           className="text-center"
         >
-          <h1 className="text-4xl font-bold gradient-text mb-2">吵架复盘机</h1>
+          <h1 className="text-4xl font-bold text-text-primary mb-2">吵架复盘机</h1>
           <p className="text-text-tertiary text-sm font-medium tracking-wide">
             AI 情绪关系助手
           </p>
@@ -105,7 +99,7 @@ export default function SplashPage() {
             {phase === 'complete' && (
               <motion.p
                 key="complete"
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-text-tertiary text-sm flex items-center gap-2"
               >
@@ -126,22 +120,13 @@ export default function SplashPage() {
           {[1, 2, 3].map((i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 rounded-full bg-brand-500/40"
+              className="w-2 h-2 rounded-full bg-brand-300"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.2 }}
             />
           ))}
         </motion.div>
       </div>
-
-      {/* Bottom hint */}
-      <motion.p
-        className="absolute bottom-12 text-text-dim text-xs tracking-widest"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: phase === 'complete' ? 0.6 : 0.3 }}
-      >
-        ❤️
-      </motion.p>
     </div>
   );
 }
