@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Heart, MessageCircleHeart } from 'lucide-react';
+import { Sparkles, MessageCircleHeart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function SplashPage() {
@@ -17,19 +17,19 @@ export default function SplashPage() {
   }, [router]);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-moodboard">
-      {/* Floating orbs */}
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0D0D0F]">
+      {/* Dark ambient glow */}
       <motion.div
-        className="absolute w-72 h-72 rounded-full bg-gradient-to-br from-pink-300/20 to-purple-300/20 blur-3xl"
+        className="absolute w-80 h-80 rounded-full bg-brand-500/10 blur-[100px]"
         animate={{ x: [0, 30, -20, 0], y: [0, -40, 20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ top: '10%', left: '-10%' }}
+        style={{ top: '5%', left: '-15%' }}
       />
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-gradient-to-br from-rose-200/15 to-violet-200/15 blur-3xl"
+        className="absolute w-96 h-96 rounded-full bg-violet-500/8 blur-[120px]"
         animate={{ x: [0, -30, 40, 0], y: [0, 30, -20, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ bottom: '5%', right: '-15%' }}
+        style={{ bottom: '0%', right: '-20%' }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-8 px-8">
@@ -40,9 +40,9 @@ export default function SplashPage() {
           transition={{ type: 'spring', stiffness: 200, damping: 15, duration: 1.2 }}
           className="relative"
         >
-          <div className="w-28 h-28 rounded-[32px] bg-gradient-brand flex items-center justify-center shadow-2xl shadow-brand-500/25">
+          <div className="w-28 h-28 rounded-[32px] bg-gradient-to-br from-brand-400 via-brand-500 to-brand-700 flex items-center justify-center shadow-2xl shadow-brand-500/20">
             <motion.div
-              animate={{ scale: [1, 1.12, 1] }}
+              animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
               <MessageCircleHeart size={52} className="text-white" />
@@ -50,8 +50,8 @@ export default function SplashPage() {
           </div>
           {/* Glow ring */}
           <motion.div
-            className="absolute inset-0 rounded-[32px] bg-gradient-brand opacity-30 blur-xl"
-            animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+            className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-brand-400 to-violet-500 opacity-25 blur-xl"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
@@ -64,7 +64,7 @@ export default function SplashPage() {
           className="text-center"
         >
           <h1 className="text-4xl font-bold gradient-text mb-2">吵架复盘机</h1>
-          <p className="text-gray-400 text-sm font-medium tracking-wide">
+          <p className="text-text-tertiary text-sm font-medium tracking-wide">
             AI 情绪关系助手
           </p>
         </motion.div>
@@ -78,7 +78,7 @@ export default function SplashPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-gray-300 text-sm"
+                className="text-text-tertiary text-sm"
               >
                 加载你的情绪世界中...
               </motion.p>
@@ -92,7 +92,7 @@ export default function SplashPage() {
                 className="flex items-center gap-2"
               >
                 <Sparkles size={16} className="text-brand-400" />
-                <span className="text-gray-500 text-sm font-medium">
+                <span className="text-text-secondary text-sm font-medium">
                   不是帮你赢，而是帮你表达
                 </span>
                 <motion.span
@@ -107,9 +107,9 @@ export default function SplashPage() {
                 key="complete"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-gray-400 text-sm flex items-center gap-2"
+                className="text-text-tertiary text-sm flex items-center gap-2"
               >
-                <Heart size={14} className="text-brand-400" />
+                <span className="text-brand-400">❤</span>
                 让每一句话都被理解
               </motion.p>
             )}
@@ -126,7 +126,7 @@ export default function SplashPage() {
           {[1, 2, 3].map((i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 rounded-full bg-gradient-to-r from-brand-400 to-purple-400"
+              className="w-2 h-2 rounded-full bg-brand-500/40"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.2 }}
             />
@@ -136,7 +136,7 @@ export default function SplashPage() {
 
       {/* Bottom hint */}
       <motion.p
-        className="absolute bottom-12 text-gray-300 text-xs tracking-widest"
+        className="absolute bottom-12 text-text-dim text-xs tracking-widest"
         initial={{ opacity: 0 }}
         animate={{ opacity: phase === 'complete' ? 0.6 : 0.3 }}
       >

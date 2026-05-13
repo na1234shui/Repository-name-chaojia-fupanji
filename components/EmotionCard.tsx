@@ -22,7 +22,6 @@ export default function EmotionCard({
   emoji,
   title,
   subtitle,
-  gradient = 'from-white/90 to-white/60',
   className,
   delay = 0,
   onClick,
@@ -49,20 +48,20 @@ export default function EmotionCard({
           {emoji ? (
             <span className="text-2xl">{emoji}</span>
           ) : Icon ? (
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-100 to-purple-100 flex items-center justify-center">
-              <Icon size={20} className="text-brand-500" />
+            <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+              <Icon size={20} className="text-brand-400" />
             </div>
           ) : null}
           <div>
-            <h3 className="font-semibold text-gray-800 text-sm">{title}</h3>
+            <h3 className="font-semibold text-text-primary text-sm">{title}</h3>
             {subtitle && (
-              <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>
+              <p className="text-xs text-text-tertiary mt-0.5">{subtitle}</p>
             )}
           </div>
         </div>
       )}
       {!Icon && !emoji && title && (
-        <h3 className="font-semibold text-gray-800 text-sm mb-2">{title}</h3>
+        <h3 className="font-semibold text-text-primary text-sm mb-2">{title}</h3>
       )}
       {children}
     </motion.div>
